@@ -16,7 +16,8 @@ Including another URLconf
 """
 from django.urls import path
 from ui import views as ui_views
-
+from candidate import views as cand_views
 urlpatterns = [
     path('', ui_views.homepage),
+    path('session_save/personal', cand_views.save_personal_in_session),
 ]

@@ -4,6 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>JobHunt - No Signups Needed</title>
+        <meta name="csrf" content={{csrf_token}}>
+        <script 
+            src="https://code.jquery.com/jquery-3.7.1.min.js" 
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+            crossorigin="anonymous">
+        </script>
     </head>
     <body>
         <div id="personal">
@@ -14,7 +20,7 @@
             DOB: <input type="date" id="dob"><br>
             <input type="text" id="cur_loc" placeholder="Current Location?"><br>
             <input type="text" id="job_loc" placeholder="Job Location?"><br>
-            <input type="button" value="Save in Session">
+            <input type="button" onclick="send_personal_to_session()" value="Save in Session">
         </div>
         <div id="educational" hidden>
             <input type="text" id="tenth" placeholder="10th School Score?"><br>
@@ -34,5 +40,46 @@
             <input type="text" id="notice_days" placeholder="Notice period in days?"><br>
             <input type="button" value="Push to DB">
         </div>
+        <div>
+            <font id="status"></font>
+        </div>
+        <script>
+            function send_personal_to_session(){
+                var fname = $("#fname").val();
+                var lname = $("#lname").val();
+                var email = $("#email").val();
+                var mobile = $("#mobile").val();
+                var dob = $("#dob").val();
+                var cur_loc = $("#cur_loc").val();
+                var job_loc = $("#job_loc").val();
+                var d = {
+                    'fname': fname, 'lname': lname,
+                    'email':email, 'mobile': mobile,
+                    'dob': dob, 'cur_loc':cur_loc,
+                    'job_loc':job_loc,
+                };
+                // console.log(d);
+                $.ajax(
+                    {
+                        url: 'session_save/personal',
+                        type: 'POST',
+                        data: d,
+                        headers: {
+                            'X-CSRFToken': $('meta[name="csrf"]').attr('content')
+                        },
+                        success: function(response){
+                            console.log("personal info updated in session");
+                            $("#personal").hide();
+                            $("#educational").show();
+                        },
+                        error: function(xhr, status, err){
+                            var msg = JSON.parse(xhr.responseText);
+                            $("#status").text(status + ":" + err +":" + msg.error); 
+                            alert(msg.error);
+                        }
+                    }
+                );
+            }
+        </script>
     </body>
 </html>

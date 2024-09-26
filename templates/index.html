@@ -30,7 +30,7 @@
             <input type="text" id="degree" placeholder="Highest degree?"><br>
             <input type="text" id="degree_score" placeholder="Highest degree's Score?"><br>
             Year of Passing: <input type="date" id="degree_yr"><br>
-            <input type="button" value="Save in Session">
+            <input type="button" onclick="send_edu_to_session()" value="Save in Session">
         </div>
         <div id="experience" hidden>
             <input type="text" id="cur_designation" placeholder="Current Designation?"><br>
@@ -79,6 +79,42 @@
                         }
                     }
                 );
+            }
+            function send_edu_to_session(){
+                var tenth = $("#tenth").val();
+                var tenth_yr = $("#tenth_yr").val();
+                var twelfth = $("#twelfth").val();
+                var twelfth_yr = $("#twelfth_yr").val();
+                var degree = $("#degree").val();
+                var degree_score = $("#degree_score").val();
+                var degree_yr = $("#degree_yr").val();
+                var d = {
+                    'tenth': tenth, 'tenth_yr': tenth_yr, 'twelfth': twelfth,
+                    'twelfth_yr': twelfth_yr, 'degree': degree, 
+                    'degree_score': degree_score, 'degree_yr': degree_yr
+                };
+
+                $.ajax(
+                    {
+                        url: 'session_save/edu',
+                        type: 'POST',
+                        data: d,
+                        headers: {
+                            'X-CSRFToken': $('meta[name="csrf"]').attr('content')
+                        },
+                        success: function(response){
+                            console.log("educational info updated in session");
+                            $("#educational").hide();
+                            $("#experience").show();
+                        },
+                        error: function(xhr, status, err){
+                            var msg = JSON.parse(xhr.responseText);
+                            $("#status").text(status + ":" + err +":" + msg.error); 
+                            alert(msg.error);
+                        }
+                    }
+                );
+
             }
         </script>
     </body>

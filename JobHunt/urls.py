@@ -20,4 +20,5 @@ from candidate import views as cand_views
 urlpatterns = [
     path('', ui_views.homepage),
     path('session_save/personal', cand_views.save_personal_in_session),
+    path('session_save/edu', cand_views.save_edu_in_session),
 ]

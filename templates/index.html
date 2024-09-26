@@ -38,7 +38,7 @@
             <input type="text" id="exp_designation" placeholder="Expected Designation?"><br>
             <input type="text" id="exp_salary" placeholder="Expected CTC in lacs?"><br>
             <input type="text" id="notice_days" placeholder="Notice period in days?"><br>
-            <input type="button" value="Push to DB">
+            <input type="button" onclick="push_to_db()" value="Push to DB">
         </div>
         <div>
             <font id="status"></font>
@@ -93,7 +93,7 @@
                     'twelfth_yr': twelfth_yr, 'degree': degree, 
                     'degree_score': degree_score, 'degree_yr': degree_yr
                 };
-
+                console.log(d);
                 $.ajax(
                     {
                         url: 'session_save/edu',
@@ -115,6 +115,42 @@
                     }
                 );
 
+            }
+            function push_to_db(){
+                var cur_designation = $("#cur_designation").val();
+                var exp_designation = $("#exp_designation").val();
+                var cur_salary = $("#cur_salary").val();
+                var exp_salary = $("#exp_salary").val();
+                var notice_days = $("#notice_days").val();
+
+                $.ajax(
+                    {
+                        url: 'db/create',
+                        type: 'POST',
+                        data: {
+                            'cur_designation': cur_designation,
+                            'exp_designation': exp_designation,
+                            'cur_salary': cur_salary,
+                            'exp_salary': exp_salary,
+                            'notice_days': notice_days,
+                        },
+                        headers: {
+                            'X-CSRFToken': $('meta[name="csrf"]').attr('content')
+                        },
+                        success: function(response){
+                            console.log("Candidate Data Updated in Database");
+                            $("#status").text(response['Status']);
+                            $("#personal").hide();
+                            $("#experience").hide();
+                            $("#educational").hide();
+                        },
+                        error: function(xhr, status, err){
+                            var msg = JSON.parse(xhr.responseText);
+                            $("#status").text(status + ":" + err +":" + msg.error); 
+                            alert(msg.error);
+                        }
+                    }
+                );
             }
         </script>
     </body>

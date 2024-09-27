@@ -22,5 +22,6 @@ urlpatterns = [
     path('session_save/personal', cand_views.save_personal_in_session),
     path('session_save/edu', cand_views.save_edu_in_session),
     path('session_save/exp', cand_views.save_exp_in_session),
+    path('session/get_data', cand_views.get_session_data),
     path('db/create', cand_views.db_insert),
 ]

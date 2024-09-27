@@ -68,6 +68,33 @@ def save_exp_in_session(request):
             return JsonResponse({'error': 'Fill the form below submitting!!'}, status=422)
     return JsonResponse({'error': 'Wrong Request'}, status=405)
 
+def get_session_data(request):
+    data = ""
+    data += f"firstname: <b>{request.session['fname']}</b><br>"
+    data += f"lastname: <b>{request.session['lname']}</b><br>"
+    data += f"email: <b>{request.session['email']}</b><br>"
+    data += f"mobile: <b>{request.session['mobile']}</b><br>"
+    data += f"dob: <b>{request.session['dob']}</b><br>"
+    data += f"cur_loc: <b>{request.session['cur_loc']}</b><br>"
+    data += f"job_loc: <b>{request.session['job_loc']}</b><br>"
+
+    data += f"tenth: <b>{request.session['tenth']}</b><br>"
+    data += f"tenth_yr: <b>{request.session['tenth_yr']}</b><br>"
+    data += f"twelfth: <b>{request.session['twelfth']}</b><br>"
+    data += f"twelfth_yr: <b>{request.session['twelfth_yr']}</b><br>"
+    data += f"degree: <b>{request.session['degree']}</b><br>"
+    data += f"degree_score: <b>{request.session['degree_score']}</b><br>"
+    data += f"degree_yr: <b>{request.session['degree_yr']}</b><br>"
+
+    data += f"cur_designation: <b>{request.session['cur_designation']}</b><br>"
+    data += f"exp_designation: <b>{request.session['exp_designation']}</b><br>"
+    data += f"cur_salary: <b>{request.session['cur_salary']}</b><br>"
+    data += f"exp_salary: <b>{request.session['exp_salary']}</b><br>"
+    data += f"notice_days: <b>{request.session['notice_days']}</b><br>"
+
+    return JsonResponse({'data': data})
+    
+
 
 def db_insert(request):
     params = []

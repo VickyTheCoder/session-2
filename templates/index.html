@@ -41,9 +41,7 @@
             <input type="button" onclick="send_exp_to_session()" value="Save in Session">
         </div>
         <div id="approval" hidden>
-            <div id="table">
-                <font id="data"></font>
-            </div>
+            <div id="data"></div>
             <input type="button" onclick="push_to_db()" value="Approve, Push To DB">
             <input type="button" onclick="delete_session_data()" value="Deny">
         </div>
@@ -174,7 +172,7 @@
                         type: 'GET',
                         success: function(response){
                             var data = response['data'];
-                            $("#data").text(data);
+                            $("#data").html(data);
                         },
                     }
                 );

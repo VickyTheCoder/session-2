@@ -180,7 +180,18 @@
                 );
             }
             function delete_session_data(){
-                // pending
+                $.ajax(
+                    {
+                        url: 'session/delete',
+                        type: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': $('meta[name="csrf"]').attr('content')
+                        },
+                        success: function(response){
+                            $("#status").text(response['Status']);
+                        },
+                    }
+                );
             }
             function pass_session_data_to_approval_page(){
                 $.ajax(

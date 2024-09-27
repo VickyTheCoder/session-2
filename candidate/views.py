@@ -145,3 +145,7 @@ def db_insert(request):
         else:
             return JsonResponse({'error': 'Fill the form below submitting!!'}, status=422)
     return JsonResponse({'error': 'Wrong Request'}, status=405)
+
+def delete_session(request):
+    request.session.delete()
+    return JsonResponse({'Status': 'Session Cleared'})

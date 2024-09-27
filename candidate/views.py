@@ -99,11 +99,11 @@ def get_session_data(request):
 def db_insert(request):
     params = []
     if request.method == 'POST':
-        cur_designation = request.POST.get('cur_designation')
-        exp_designation = request.POST.get('exp_designation')
-        cur_salary = request.POST.get('cur_salary')
-        exp_salary = request.POST.get('exp_salary')
-        notice_days = request.POST.get('notice_days')
+        cur_designation = request.session['cur_designation']
+        exp_designation = request.session['exp_designation']
+        cur_salary = request.session['cur_salary']
+        exp_salary = request.session['exp_salary']
+        notice_days = request.session['notice_days']
         params.extend([cur_designation,exp_designation])
         params.extend([cur_salary, exp_salary, notice_days])
 

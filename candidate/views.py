@@ -47,6 +47,9 @@ def save_edu_in_session(request):
             return JsonResponse({'error': 'Fill the form below submitting!!'}, status=422)
     return JsonResponse({'error': 'Wrong Request'}, status=405)
 
+def save_exp_in_session(request):
+    pass
+
 def db_insert(request):
     params = []
     if request.method == 'POST':

@@ -151,6 +151,7 @@
                             $("#experience").hide();
                             $("#educational").hide();
                             $("#approval").show();
+                            pass_session_data_to_approval_page();
                         },
                         error: function(xhr, status, err){
                             var msg = JSON.parse(xhr.responseText);
@@ -165,6 +166,18 @@
             }
             function delete_session_data(){
                 // pending
+            }
+            function pass_session_data_to_approval_page(){
+                $.ajax(
+                    {
+                        url: 'session/get_data',
+                        type: 'GET',
+                        success: function(response){
+                            var data = response['data'];
+                            $("#data").text(data);
+                        },
+                    }
+                );
             }
         </script>
     </body>

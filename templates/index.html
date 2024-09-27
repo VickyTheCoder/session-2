@@ -41,8 +41,11 @@
             <input type="button" onclick="send_exp_to_session()" value="Save in Session">
         </div>
         <div id="approval" hidden>
-            
-            <input type="button" onclick="push_to_db()" value="Push To DB">
+            <div id="table">
+                <font id="data"></font>
+            </div>
+            <input type="button" onclick="push_to_db()" value="Approve, Push To DB">
+            <input type="button" onclick="delete_session_data()" value="Deny">
         </div>
         <div>
             <font id="status"></font>
@@ -158,6 +161,9 @@
                 );
             }
             function push_to_db(){
+                // pending
+            }
+            function delete_session_data(){
                 // pending
             }
         </script>

@@ -48,7 +48,26 @@ def save_edu_in_session(request):
     return JsonResponse({'error': 'Wrong Request'}, status=405)
 
 def save_exp_in_session(request):
-    pass
+    if request.method == 'POST':
+        cur_designation = request.POST.get('cur_designation')
+        exp_designation = request.POST.get('exp_designation')
+        cur_salary = request.POST.get('cur_salary')
+        exp_salary = request.POST.get('exp_salary')
+        notice_days = request.POST.get('notice_days')
+        data = [cur_designation, exp_designation, cur_salary]
+        data.extend([exp_salary, notice_days])
+        print(data, 789)
+        if any(data):
+            request.session['cur_designation'] = cur_designation
+            request.session['exp_designation'] = exp_designation
+            request.session['cur_salary'] = cur_salary
+            request.session['exp_salary'] = exp_salary
+            request.session['notice_days'] = notice_days
+            return JsonResponse({'Status': 'Experience Data Updated In Session'})
+        else:
+            return JsonResponse({'error': 'Fill the form below submitting!!'}, status=422)
+    return JsonResponse({'error': 'Wrong Request'}, status=405)
+
 
 def db_insert(request):
     params = []

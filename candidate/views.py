@@ -98,7 +98,7 @@ def get_session_data(request):
 
 def db_insert(request):
     params = []
-    if request.method == 'POST':
+    if request.method == 'GET':
         cur_designation = request.session['cur_designation']
         exp_designation = request.session['exp_designation']
         cur_salary = request.session['cur_salary']
